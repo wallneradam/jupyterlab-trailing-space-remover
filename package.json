@@ -1,5 +1,5 @@
 {
-  "name": "trailing_space_remover",
+  "name": "@wallneradam/trailing_space_remover",
   "version": "0.1.0",
   "description": "Removes trailing spaces on save from cells and text editor",
   "keywords": [

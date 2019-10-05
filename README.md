@@ -10,7 +10,7 @@ Removes trailing spaces on save from cells and text editor.
 ## Installation
 
 ```bash
-jupyter labextension install trailing-space-remover
+jupyter labextension install @wallneradam/trailing-space-remover
 ```
 
 ## Development
