@@ -1,0 +1,49 @@
+{
+  "name": "trailing_space_remover",
+  "version": "0.1.0",
+  "description": "Removes trailing spaces on save from cells and text editor",
+  "keywords": [
+    "jupyter",
+    "jupyterlab",
+    "jupyterlab-extension"
+  ],
+  "homepage": "https://github.com/wallneradam/jupyterlab-trailing-space-remover",
+  "bugs": {
+    "url": "https://github.com/wallneradam/jupyterlab-trailing-space-remover/issues"
+  },
+  "license": "BSD-3-Clause",
+  "author": "Adam Wallner",
+  "files": [
+    "lib/**/*.{d.ts,eot,gif,html,jpg,js,js.map,json,png,svg,woff2,ttf}",
+    "style/**/*.{css,eot,gif,html,jpg,json,png,svg,woff2,ttf}"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "style": "style/index.css",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wallneradam/jupyterlab-trailing-space-remover.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rimraf lib && rimraf tsconfig.tsbuildinfo",
+    "prepare": "npm run clean && npm run build",
+    "watch": "tsc -w"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.1",
+    "typescript": "~3.5.2"
+  },
+  "sideEffects": [
+    "style/*.css"
+  ],
+  "jupyterlab": {
+    "extension": true
+  },
+  "dependencies": {
+    "@jupyterlab/application": "^1.1.3",
+    "@jupyterlab/docregistry": "^1.1.3",
+    "@jupyterlab/notebook": "^1.1.3",
+    "@phosphor/disposable": "^1.3.0"
+  }
+}
