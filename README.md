@@ -12,7 +12,7 @@ and multi selections.
 ## Installation
 
 ```bash
-jupyter labextension install @wallneradam/trailing-space-remover
+jupyter labextension install @wallneradam/trailing_space_remover
 ```
 
 ## Development
