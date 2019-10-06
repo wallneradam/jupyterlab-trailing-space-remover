@@ -1,6 +1,6 @@
 {
   "name": "@wallneradam/trailing_space_remover",
-  "version": "0.3.0",
+  "version": "0.3.2",
   "description": "Removes trailing spaces on save from cells and text editor",
   "keywords": [
     "jupyter",

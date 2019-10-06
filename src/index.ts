@@ -1,4 +1,4 @@
-const PLUGIN_NAME = "trailing_space_remover";
+const PLUGIN_NAME = "@wallneradam/trailing_space_remover";
 
 import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from "@jupyterlab/application";
