@@ -1,7 +1,9 @@
 # trailing-space-remover
 
-Removes trailing spaces on save from cells and text editor.
+Removes trailing spaces on save from notebook cells.
 
+It can move cursors and selections to the expected place after space removal. It supports multicursors
+and multi selections.
 
 ## Prerequisites
 
