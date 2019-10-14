@@ -68,9 +68,11 @@ class TrailingSpaceRemover {
 
         // Actally remove trailing spaces
         t = t.replace(/[\t ]+(\n|$)/g, '$1');
-        editor.model.value.text = t;
-
-        return newSelectionPositions;
+        if (t != editor.model.value.text) {
+            editor.model.value.text = t;
+            return newSelectionPositions;
+        }
+        return null;
     }
 }
 
@@ -113,14 +115,15 @@ class RemoveTrailingSpaceNotebook extends TrailingSpaceRemover
                     this.newCellSelectionPositions.push(newSelectionPositions);
                 }
             }
-        }
 
-        // After save - restore selection positions
-        else if (state == 'completed') {
+            // Save scroll position, because selection change cause scrolling down to lhe not active cell
+            let scrollTop = this.notebook.node.scrollTop;
+
             for (let cell of this.notebook.widgets) {
                 // We care only CodeCells
                 if (cell instanceof CodeCell) {
                     let selectionPositions = this.newCellSelectionPositions.shift();
+                    if (selectionPositions === null) continue;  // If content has changed
                     let selections: CodeEditor.IRange[] = []
                     // Create selections from positions
                     for (let selectionPosition of selectionPositions) {
@@ -133,6 +136,11 @@ class RemoveTrailingSpaceNotebook extends TrailingSpaceRemover
                     cell.editor.setSelections(selections);
                 }
             }
+
+            // Restore scroll position
+            setTimeout(() => {
+                this.notebook.node.scrollTop = scrollTop;
+            });
         }
     }
 }
