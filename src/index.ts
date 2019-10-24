@@ -80,18 +80,17 @@ class TrailingSpaceRemover {
 /**
  * Trailing space remover for notebooks
  */
-class RemoveTrailingSpaceNotebook extends TrailingSpaceRemover
-    implements DocumentRegistry.IWidgetExtension<NotebookPanel, INotebookModel> {
+class RemoveTrailingSpaceNotebook extends TrailingSpaceRemover {
 
     private notebook: Notebook;
     // This will store the needed new positions of the selections between save start and end
     private newCellSelectionPositions: SelectionPositions[] = [];
 
-    createNew(panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable {
+    createNew(panel: NotebookPanel): IDisposable {
         // The content of the notebook panel will be the actual notebook object
         this.notebook = panel.content;
         // Connect to save(State) signal, to be able to detect document save event
-        context.saveState.connect(this.onSave, this);
+        panel.context.saveState.connect(this.onSave, this);
 
         // Return an empty disposable, because we don't create any object
         return new DisposableDelegate(() => { });
@@ -149,8 +148,7 @@ class RemoveTrailingSpaceNotebook extends TrailingSpaceRemover
 /**
  * Trailing space remover for editors
  */
-class RemoveTrailingSpaceEditor extends TrailingSpaceRemover
-    implements DocumentRegistry.IWidgetExtension<DocumentWidget, DocumentModel> {
+class RemoveTrailingSpaceEditor extends TrailingSpaceRemover {
 
     private widget: DocumentWidget;
     // This will store the needed new positions of the selections between save start and end
@@ -206,9 +204,19 @@ const extension: JupyterFrontEndPlugin<void> = {
     activate: (app: JupyterFrontEnd) => {
         console.log(`JupyterLab extension ${PLUGIN_NAME} is activated!`);
         // Register trailingspace remover for notebooks
-        app.docRegistry.addWidgetExtension('notebook', new RemoveTrailingSpaceNotebook);
+        app.docRegistry.addWidgetExtension('notebook', {
+            // Create new trailingspace remover for every notebook
+            createNew: (panel: NotebookPanel, context: DocumentRegistry.IContext<INotebookModel>): IDisposable => {
+                return new RemoveTrailingSpaceNotebook().createNew(panel);
+            }
+        });
         // Register trailingspace remover for editors
-        app.docRegistry.addWidgetExtension('editor', new RemoveTrailingSpaceEditor);
+        app.docRegistry.addWidgetExtension('editor', {
+            // Create new trailingspace remover for every editor
+            createNew: (widget: DocumentWidget, context: DocumentRegistry.IContext<DocumentModel>): IDisposable => {
+                return new RemoveTrailingSpaceEditor().createNew(widget, context);
+            }
+        });
     }
 };
 
