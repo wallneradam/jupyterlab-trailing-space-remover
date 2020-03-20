@@ -1,6 +1,6 @@
 const PLUGIN_NAME = "@wallneradam/trailing_space_remover";
 
-import { IDisposable, DisposableDelegate } from '@phosphor/disposable';
+import { IDisposable, DisposableDelegate } from '@lumino/disposable';
 import { JupyterFrontEnd, JupyterFrontEndPlugin } from "@jupyterlab/application";
 import { DocumentRegistry, DocumentWidget, DocumentModel } from '@jupyterlab/docregistry';
 import { NotebookPanel, INotebookModel, Notebook } from '@jupyterlab/notebook';
